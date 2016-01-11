@@ -153,16 +153,19 @@ function addToLocalStorage(userName){
 	localStorage.setItem(userName, userName);
 }
 this.hintModeFade = hintModeFade;
-function hintModeFade(winnerId){
-	console.log(winnerId);
-	var delay = 6000;
-	for (var i=1; i <= 5; i++){
+function hintModeFade(winnerId, i){
                 var id = "employee-" + i;
-                if (id != winnerId){
-                        $('#'+id).delay(delay).fadeTo(1000,.25);
-                	delay += 6000;
+		console.log(id);
+                if (id != winnerId && i <= 5){
+                        $.when($('#'+id).animate({opacity: 0.25},5000)).then( 
+			function(){
+				hintModeFade(winnerId, i + 1);
+			});
+		}else if (i > 5){
+			return false;
+		}else if (i < 5 && id == winnerId){
+			hintModeFade(winnerId, i + 1);
 		}
-        }
 }
 
 this.fadeOutPeople = fadeOutPeople;
@@ -170,6 +173,7 @@ function fadeOutPeople(){
 	for (var i=1; i <= 5; i++){
 		var id = "employee-" + i;
 		if (id != winnerId){
+			$('#'+id).stop();
 			$('#'+id).fadeTo(1000,.25);
 		}
 	}
@@ -251,7 +255,7 @@ function showPeople(people){
         });
 	}
 	if(hintMode && !reverseMode)
-		hintModeFade(winnerId);
+		hintModeFade(winnerId, 1);
 }
 this.setElements = setElements;
 function setElements(people, arr, random){
