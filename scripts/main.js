@@ -12,9 +12,8 @@ var winnerId = "";
 var reverseName = "";
 $(document).ready(function(){
 	$('#command').hide();
-        //https://www.youtube.com/watch?v=EbTlK3perdI
         var easter_egg = new Konami();
-        easter_egg.load('https://www.youtube.com/watch?v=EbTlK3perdI');
+        easter_egg.load('https://www.youtube.com/watch?v=Lfz6hQXTrbw');
 	$(document).keypress(":", function(e){
 		if(e.keyCode == 58){
 			$('#command').show();
